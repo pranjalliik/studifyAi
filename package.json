@@ -9,11 +9,34 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
-    "next": "15.0.3"
+    "@clerk/nextjs": "^6.3.2",
+    "@google/generative-ai": "^0.21.0",
+    "@neondatabase/serverless": "^0.10.3",
+    "@radix-ui/react-popover": "^1.1.2",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.2",
+    "axios": "^1.7.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.1",
+    "inngest": "^3.25.1",
+    "lucide-react": "^0.456.0",
+    "neon-serverless": "^0.5.3",
+    "next": "15.0.3",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-loader-spinner": "^6.1.6",
+    "react-responsive": "^10.0.0",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "drizzle-kit": "^0.28.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }
