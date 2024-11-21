@@ -8,12 +8,16 @@ import { useState } from 'react'
 import { useMediaQuery } from 'react-responsive';
 import { RefreshCcw } from 'lucide-react'
 import Link from 'next/link'
+import {useRouter} from 'next/navigation'
 
 function CourseCard({course}) {
 
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const [query, setQuery] = useState('');
+
+    const router = useRouter()
+
   return (
     
     <div className = 'shadow-lg p-18 p-4 rounded-lg border'>
@@ -30,7 +34,7 @@ function CourseCard({course}) {
             course.status === 'Generating' ?
           <Button className='px-1 bg-gray-400' >Generating..</Button>
             :
-        <Button className='bg-blue-500'><Link href={`course/${course.courseid}`}>View</Link></Button>
+        <Button className='bg-blue-500 text-white' onClick={()=>router.push(`course/${course.courseid}`)}>View</Button>
         }
         </div>
     </div>

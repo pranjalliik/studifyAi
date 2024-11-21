@@ -3,6 +3,13 @@ import { checkAndAddUser } from "@/configs/db";
 import { updateCourseStatus } from "@/configs/db";
 import { addChapters } from "@/configs/db";
 import { createChapterModel } from "@/configs/aiModel";
+import { updateflash } from "@/configs/db";
+import { flashCardModel } from "@/configs/aiModel";
+import { deleteFlashcard } from "@/configs/db";
+import { quizModel } from "@/configs/aiModel";
+import { deleteQuiz , updateQuiz } from "@/configs/db";
+
+
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
   { event: "test/hello.world" },
@@ -71,4 +78,55 @@ const {course}=event.data;
 
   })
 
-  
+  export const generateFlashCard=inngest.createFunction(
+
+    {id: 'generate-flash'}, 
+    {event:'flash.generate'},
+     async({event,step})=>{
+      const {courseid,PROMPT}=event.data;
+
+      const flashResult = await step.run('Generate flash cards',async()=>{
+        let aiResult 
+        try{
+      const aiResp = await flashCardModel.sendMessage(PROMPT);
+       aiResult = JSON.parse(aiResp.response.text());
+         }catch(err){ 
+           deleteFlashcard(courseid)
+           return 'failed'
+        }
+    
+      let dbRes = await updateflash( aiResult, courseid , 'completed' )
+      return 'Success'
+
+      })
+     }
+  )
+
+
+
+
+
+
+  export const generateQuiz=inngest.createFunction(
+
+    {id: 'generate-quiz'}, 
+    {event:'quiz.generate'},
+     async({event,step})=>{
+      const {courseid,PROMPT}=event.data;
+
+      const quizResult = await step.run('Generate quiz',async()=>{
+        let aiResult //done till here 
+        try{
+      const aiResp = await quizModel.sendMessage(PROMPT);
+       aiResult = JSON.parse(aiResp.response.text());
+         }catch(err){ 
+           deleteQuiz(courseid)
+           return 'failed'
+        }
+    
+      let dbRes = await updateQuiz( aiResult, courseid , 'completed' )
+      return 'Success'
+
+      })
+     }
+  )

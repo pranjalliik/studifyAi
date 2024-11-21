@@ -61,7 +61,7 @@ export async function createCourse(courseId ,content ,purpose ,difficulty , layo
 export async function getUserCourse(user){
   try {
       console.log(user)
-    const userCourse = await sql`SELECT * FROM studymaterial WHERE createdby= ${user}`
+    const userCourse = await sql`SELECT * FROM studymaterial WHERE createdby= ${user} ORDER BY id DESC`
        //console.log(userCourse)
     if (userCourse) {
 
@@ -107,7 +107,7 @@ export async function getCourse(courseid){
 
   try{
     let res = await sql`SELECT * FROM studymaterial where courseid = ${courseid}`
-    console.log('course-> ',res)
+   // console.log('course-> ',res)
     return { data : res };
 
 
@@ -128,4 +128,117 @@ export async function getNotes(courseid){
   }catch(err){
     console.log(err)
   }
+}
+
+
+export async function getFlashcards(courseid){
+
+  try{
+    let res = await sql`SELECT * FROM flashcards WHERE courseid = ${courseid}`;
+   // console.log('flash-> ',res)
+    return { data : res };
+
+
+  }catch(err){
+    console.log(err)
+  }
+}
+
+export async function getCourseQuiz(courseid){
+
+  try{
+    let res = await sql`SELECT * FROM quiz WHERE courseid = ${courseid}`;
+   // console.log('quiz-> ',res)
+    return { data : res };
+
+
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
+export async function updateflash(flashcard,courseid ,status){
+  try{
+    let res = await sql`UPDATE flashcards SET flashcards = ${flashcard} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
+       console.log('updated flashcard ->',res )
+       return { data : res };
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+
+export async function generateFlashCard(courseid){
+  try{
+    let res = await sql`INSERT INTO flashcards (courseid ) VALUES ( ${courseid} ) RETURNING *`
+      console.log('flashcard generate =>' , res)
+    return { message: 'course added successfully', data : res };
+  }catch(err){
+        console.log(err)
+  }
+}
+
+
+
+export async function deleteFlashcard(courseId){
+  try{
+ let res = await sql`DELETE FROM flashcards WHERE courseid = ${courseId}`
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
+export async function deleteQuiz(courseId){
+  try{
+ let res = await sql`DELETE FROM quiz WHERE courseid = ${courseId}`
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
+
+
+export async function generateQuiz(courseid){
+  try{
+    let res = await sql`INSERT INTO quiz (courseid ) VALUES ( ${courseid} ) RETURNING *`
+      console.log('quiz generate =>' , res)
+    return { message: 'quiz added successfully', data : res };
+  }catch(err){
+        console.log(err)
+  }
+}
+
+
+
+export async function updateQuiz(quiz,courseid ,status){
+  try{
+    let res = await sql`UPDATE quiz SET questions = ${quiz} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
+       console.log('updated quiz ->',res )
+       return { data : res };
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+
+export async function countCreditConsumed(email){
+   try{  
+  let userRes = await sql`SELECT * from users WHERE email = ${email}`
+ 
+  console.log(userRes[0].isMember)
+  if(!userRes[0].isMember){
+  let courseCount = await sql`SELECT COUNT(*) FROM studymaterial WHERE createdby = ${email}`
+ // console.log(courseCount)
+    return {creditconsumed : courseCount }
+  }else{
+    return {creditconsumed :[{ count : -1 }]}
+  }
+}catch(err){
+  console.log(err)
+}
 }

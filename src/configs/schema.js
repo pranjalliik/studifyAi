@@ -47,3 +47,26 @@ export const STUDY_MATERIAL_TABLE=pgTable('studymaterial', {
         notes:text()
         
         })
+
+
+        export const FLASHCARD_TABLE=pgTable('flashcards', {
+
+            id:serial().primaryKey(),
+            
+            courseid:varchar().notNull(),
+            
+            flashcards: json(),
+            status: varchar().default('Generating')
+            
+            })
+
+            export const QUIZ_TABLE=pgTable('quiz', {
+
+                id:serial().primaryKey(),
+                
+                courseid:varchar().notNull(),
+                
+                questions:text(),
+                status: varchar().default('Generating')
+                
+                })  

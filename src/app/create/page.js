@@ -10,6 +10,7 @@ import { useUser } from '@clerk/nextjs'
 import { Loader } from 'lucide-react'
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from 'next/navigation'
+import DashboardHeader from '../components/DashboardHeader'
 function CreateCourse() {
 
   const[ step , setStep] = useState(0)
@@ -54,7 +55,8 @@ async function handleGenerate(){
 
   return (
     <div>
-        <div className='text-center text-2xl text-blue-600 font-bold lg:mt-24 md:mt-24  xl:mt-24 mt-16' > Start Building Your Personal Study Material</div>
+      <DashboardHeader/>
+        <div className='text-center text-2xl text-blue-600 font-bold lg:mt-8 md:mt-8  xl:mt-8 mt-8' > Start Building Your Personal Study Material</div>
         <div className='mt-2 text-center font-lg text-gray-400'>Fill the details in order to generate study material for you</div>
        { step == 0 &&  <StudyOptions handleFormData={handleFormData} formData={formData}/> }
         { step== 1 &&<SelectOptions handleFormData={handleFormData} />}

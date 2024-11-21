@@ -61,3 +61,43 @@
         });
         
     
+      export const flashCardModel = model.startChat({
+          generationConfig,
+          history: [
+            {
+              role: "user",
+              parts: [
+                {text: "Generate the flashcard on topic: Flutter Fundamentals, User Interface (UI) Development, Basic App Navigation in JSON format with front back content, Maximum 15"},
+              ],
+            },
+            {
+              role: "model",
+              parts: [
+                {text: "```json\n[\n  {\n    \"front\": \"What is a Widget in Flutter?\",\n    \"back\": \"The fundamental building block of Flutter UI. Everything you see on the screen is a widget.\"\n  },\n  {\n    \"front\": \"What are the two main types of Widgets?\",\n    \"back\": \"StatelessWidget and StatefulWidget.\"\n  },\n  {\n    \"front\": \"When to use StatelessWidget?\",\n    \"back\": \"For widgets whose state (data) doesn't change over time.\"\n  },\n  {\n    \"front\": \"When to use StatefulWidget?\",\n    \"back\": \"For widgets whose state (data) changes over time, requiring rebuilds.\"\n  },\n  {\n    \"front\": \"Explain the `build()` method.\",\n    \"back\": \"In a widget, this method describes the UI based on the widget's state. It's called whenever the widget needs to be redrawn.\"\n  },\n  {\n    \"front\": \"What is a `BuildContext`?\",\n    \"back\": \"Provides information about the widget's position in the widget tree.\"\n  },\n  {\n    \"front\": \"Name three common layout widgets.\",\n    \"back\": \"Row, Column, and Stack.\"\n  },\n  {\n    \"front\": \"What does a `Row` widget do?\",\n    \"back\": \"Arranges children horizontally.\"\n  },\n  {\n    \"front\": \"What does a `Column` widget do?\",\n    \"back\": \"Arranges children vertically.\"\n  },\n  {\n    \"front\": \"What does a `Stack` widget do?\",\n    \"back\": \"Overlays children on top of each other.\"\n  },\n  {\n    \"front\": \"How do you navigate to a new screen in Flutter?\",\n    \"back\": \"Using `Navigator.push()`.\"\n  },\n  {\n    \"front\": \"How do you return from a screen in Flutter?\",\n    \"back\": \"Using `Navigator.pop()`.\"\n  },\n  {\n    \"front\": \"What is a `MaterialApp`?\",\n    \"back\": \"A widget that provides a Material Design theme and manages navigation.\"\n  },\n  {\n    \"front\": \"What is a `Route`?\",\n    \"back\": \"A description of how to transition between screens in a navigation stack.\"\n  },\n  {\n    \"front\": \"What is the purpose of `Key` in widgets?\",\n    \"back\": \"To uniquely identify a widget, especially useful when manipulating or replacing widgets in a tree. Helps in efficient updates.\"\n  }\n]\n```\n"},
+              ],
+            },
+          ],
+        });
+
+
+
+
+
+
+      export const quizModel = model.startChat({
+          generationConfig,
+          history: [
+            {
+              role: "user",
+              parts: [
+                {text: "Generate Quiz on topic: Flutter Fundamentals, User Interface (UI) Development, Basic App Navigation with Question and Options along with correct answer in JSON format"},
+              ],
+            },
+            {
+              role: "model",
+              parts: [
+                {text: "```json\n{\n  \"quizTitle\": \"Flutter Fundamentals & UI Development\",\n  \"questions\": [\n    {\n      \"question\": \"What is the primary programming language used in Flutter?\",\n      \"options\": [\"Java\", \"Kotlin\", \"Dart\", \"Swift\"],\n      \"correctAnswer\": \"Dart\"\n    },\n    {\n      \"question\": \"Which widget is the root of most Flutter applications?\",\n      \"options\": [\"Container\", \"Row\", \"Column\", \"MaterialApp\"],\n      \"correctAnswer\": \"MaterialApp\"\n    },\n    {\n      \"question\": \"What is the purpose of a StatefulWidget in Flutter?\",\n      \"options\": [\"To create a static UI that doesn't change\", \"To create a UI that can rebuild based on changes in state\", \"To manage app-wide themes\", \"To handle user input\"],\n      \"correctAnswer\": \"To create a UI that can rebuild based on changes in state\"\n    },\n    {\n      \"question\": \"Which widget is used to arrange children horizontally in a row?\",\n      \"options\": [\"Column\", \"Row\", \"Stack\", \"Container\"],\n      \"correctAnswer\": \"Row\"\n    },\n    {\n      \"question\": \"How do you navigate from one screen to another in Flutter using Navigator?\",\n      \"options\": [\"Navigator.push(context, MaterialPageRoute(builder: (context) => YourNewScreen()));\", \"Navigator.pop(context);\", \"Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => YourNewScreen()));\", \"All of the above\"],\n      \"correctAnswer\": \"Navigator.push(context, MaterialPageRoute(builder: (context) => YourNewScreen()));\"\n    },\n    {\n      \"question\": \"What does the `BuildContext` represent in Flutter?\",\n      \"options\": [\"The current screen's dimensions\", \"The entire app's state\", \"The widget tree's location of a given widget\", \"The user's device information\"],\n      \"correctAnswer\": \"The widget tree's location of a given widget\"\n    },\n    {\n      \"question\": \"Which widget is best suited for displaying a list of items that can be scrolled?\",\n      \"options\": [\"ListView\", \"GridView\", \"Column\", \"Row\"],\n      \"correctAnswer\": \"ListView\"\n    },\n    {\n      \"question\": \"What is the purpose of a `Key` in Flutter widgets?\",\n      \"options\": [\"To uniquely identify a widget\", \"To determine the widget's position in the layout\", \"To specify the widget's color\", \"To define the widget's size\"],\n      \"correctAnswer\": \"To uniquely identify a widget\"\n    },\n    {\n      \"question\": \"What does the `StatelessWidget` do?\",\n      \"options\": [\"It rebuilds its UI when state changes.\", \"It holds state data that can change over time.\", \"It is a widget that never changes its UI after it's built.\", \"It handles user interactions.\"],\n      \"correctAnswer\": \"It is a widget that never changes its UI after it's built.\"\n    },\n    {\n      \"question\": \"What is the method used to update the UI in a StatefulWidget?\",\n      \"options\": [\"setState()\", \"updateUI()\", \"refresh()\", \"repaint()\"],\n      \"correctAnswer\": \"setState()\"\n    }\n  ]\n}\n```\n"},
+              ],
+            },
+          ],
+        });
