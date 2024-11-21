@@ -77,7 +77,7 @@ export default function Home() {
 
 <footer className="bg-gray-800 py-8">
   <div className="container mx-auto text-center">
-    <h2 className="text-xl font-semibold text-white ">
+    <h2 className="text-xl font-semibold text-white">
       Let's Connect
     </h2>
     <p className="text-gray-400 mt-2">
