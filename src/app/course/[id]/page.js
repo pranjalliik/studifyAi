@@ -76,7 +76,7 @@ async function getStudyMaterial(){
 
     return (
 <> <DashboardHeader/>
- { course ?<CourseIntoCard course={course} flash={flash} quiz={quiz} flashloading={flashloading} setFlashloading={setFlashloading} quizloading={quizloading} setQuizloading={setQuizloading} /> 
+ { course ?<CourseIntoCard course={course} flash={flash} quiz={quiz} flashloading={flashloading} setFlashloading={setFlashloading} quizloading={quizloading} setQuizloading={setQuizloading} getStudyMaterial={getStudyMaterial}/> 
   :
   <div  className="flex justify-center mt-6">
   <ThreeDots

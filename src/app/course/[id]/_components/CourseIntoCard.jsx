@@ -15,8 +15,9 @@ import axios from 'axios'
 import { LoaderCircle } from 'lucide-react';
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
+import { RefreshCcw } from 'lucide-react';
 
-function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,quizloading, setQuizloading}) {
+function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,quizloading, setQuizloading , getStudyMaterial}) {
 
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -72,7 +73,7 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
   return (
     <div className=''>
         
-        <div  className='flex shadow-lg   xl:ml-28 xl:mr-28  mx-2 md:mx-5 lg:mx-8 mt-8 '>
+        <div  className='flex shadow-lg   xl:ml-28 xl:mr-28  mx-2 md:mx-5 lg:mx-8 mt-8  '>
         { isDesktopOrLaptop&& course && <Image src={cii} alt='course' className='w-52 p-2'/> }
 
          <div className=''>
@@ -81,6 +82,9 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
          </div>
         </div>
         <div className='text-center font-bold text-2xl mt-8'>Study Material</div>
+       <div className='flex justify-end'>
+       <Button onClick={getStudyMaterial} variant='outline' className='text-blue-500 hover:gray mt-2 mr-6' ><RefreshCcw/>Refresh</Button>
+       </div>
         <div className='flex lg:flex-row xl:flex-row md:flex-row flex-col gap-x-4 justify-center mt-6 gap-y-6'>
 
          <div className='shadow-lg flex flex-col items-center lg:w-1/4 xl:w-1/4 md:w-1/4 mx-5 py-4 bg-gray-200 rounded-lg'>
@@ -95,7 +99,7 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
             <div className='bg-green-500 px-4 text-white rounded-lg'>ready</div>
             <Image src={flashh} alt='lampicon' className='h-[81px] w-[77px] mt-2'/>
             <div className='text-lg font-semibold'>Flashcards</div>
-            <Button><Link href={'/flashcard'}  className='bg-black py-1 px-8 mt-2 text-white'>Continue</Link></Button>
+            <Button className='bg-black py-1 px-8 mt-2 text-white'  onClick={()=>router.push(`${course.courseid}/flashcard`)}>Continue </Button>
             </div> :
             <div className='shadow-lg flex flex-col items-center lg:w-1/4 xl:w-1/4 md:w-1/4 mx-5 py-4 bg-gra rounded-lg'>
             <div className='bg-gray-400 px-4 text-white rounded-lg'>not prepared</div>
@@ -116,9 +120,9 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
             quiz ?
             <div className='shadow-lg flex flex-col items-center lg:w-1/4 xl:w-1/4 md:w-1/4 mx-5 py-4 bg-gray-200 rounded-lg'>
             <div className='bg-green-500 px-4 text-white rounded-lg'>ready</div>
-            <Image src={sb} alt='lampicon' className=''/>
+            <Image src={sb} alt='lampicon' className='h-[81px] w-[77px] mt-2'/>
             <div className='text-lg font-semibold'>Quiz</div>
-            <Button className='bg-black py-1 px-8 mt-2'>Continue</Button>
+            <Button className='bg-black py-1 px-8 mt-2' onClick={()=>router.push(`${course.courseid}/quiz`)}>Continue</Button>
             </div> :
                         <div className='shadow-lg flex flex-col items-center lg:w-1/4 xl:w-1/4 md:w-1/4 mx-5 py-4 bg-gra rounded-lg'>
                         <div className='bg-gray-400 px-4 text-white rounded-lg'>not prepared</div>

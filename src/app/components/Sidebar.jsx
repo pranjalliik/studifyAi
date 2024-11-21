@@ -46,7 +46,7 @@ async function getCreditCount(){
     console.log(res)
     if(res?.data?.result?.creditconsumed?.[0]?.count){
         setCount(res.data.result.creditconsumed[0].count)
-    }
+     }
     }
 }
 //cursor: no-drop;

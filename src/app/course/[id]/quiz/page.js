@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import QuizItem from './_components/QuizItem'
+import { ThreeDots } from 'react-loader-spinner'
+import axios from 'axios'
 
 function page() {
     const params = useParams()
     const [step,setStep] = useState(0)
     const[queRes , setQueRes ] = useState(false)
-   
+   const[quiz,setQuiz] = useState()
     const[selectedAns , setSelectedAns] = useState('')
 
     useEffect(()=>{
@@ -26,12 +28,15 @@ function page() {
       
              if(res.data?.result?.resQuiz?.data?.[0]){
                      if(res.data?.result?.resQuiz?.data?.[0]?.questions){
-                    //  setFlash(true) setflashcards
-                }}}
+                    //  setFlash(true) setflashcards  (JSON.parse(res.data?.result?.resFlash?.data?.[0]?.flashcards))
+                  
+                    setQuiz(JSON.parse(res.data.result.resQuiz.data[0].questions))
+               
+                  }}}
           }catch(err){
                }}
 
-
+/*
     let quiz = {
         "quizTitle": "Flutter Fundamentals & UI Development",
         "questions": [
@@ -86,14 +91,14 @@ function page() {
             "correctAnswer": "setState()"
           }
         ]
-      }
+      }*/
 
       
 function incStep(){
     setQueRes(false)
     setSelectedAns('')
-    console.log(quiz.questions.length)
-   if(step == quiz.questions.length-1){
+
+    if(step == quiz.questions.length-1){
     console.log('hii')
       setStep(0)
       return
@@ -114,23 +119,34 @@ function incStep(){
    setStep(step-1)
 }
 
-console.log(quiz.questions.length)
   return (
+    <>
+    { quiz ?
     <div>
-        {quiz && <div className='flex justify-center gap-x-3 xl:mx-32 lg:mx-28 md:mx-24 mx-2 mt-6'>
+        <div className='flex justify-center gap-x-3 xl:mx-32 lg:mx-28 md:mx-24 mx-2 mt-6'>
          {quiz.questions.map((question,index)=>(
              <div className={`h-2 w-full rounded-lg  shadow-lg ${index<= step? 'bg-blue-500' : 'bg-gray-300'} `} key={index}  ></div>
          ))
          
          
          }
-        </div>}
-        {quiz&& <QuizItem question={quiz.questions[step]} setQueRes={setQueRes} queRes={queRes} selectedAns={selectedAns} setSelectedAns={setSelectedAns}/>}
+        </div>
+        <QuizItem question={quiz.questions[step]} setQueRes={setQueRes} queRes={queRes} selectedAns={selectedAns} setSelectedAns={setSelectedAns}/>
          <div className='mt-6 flex justify-center lg:flex-row xl:flex-row md:flex-row flex-col gap-x-64 gap-y-4 items-center '>
         <Button className='px-12 py-6 ' onClick={decStep} >Prev</Button>
         <Button className='px-12 py-6 ' onClick={incStep} >Next</Button>
         </div> 
-    </div>
+    </div> :   
+    <div  className="flex justify-center mt-6">
+            <ThreeDots
+            
+              color="#000000" // Change color of loader
+              height={10} // Set height of loader
+              width={100} // Set width of loader
+            />
+            
+            </div>  }
+    </>
   )
 }
 

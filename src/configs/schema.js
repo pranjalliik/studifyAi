@@ -66,7 +66,7 @@ export const STUDY_MATERIAL_TABLE=pgTable('studymaterial', {
                 
                 courseid:varchar().notNull(),
                 
-                questions:text(),
+                questions: json(),
                 status: varchar().default('Generating')
                 
                 })  

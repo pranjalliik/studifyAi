@@ -160,7 +160,8 @@ export async function getCourseQuiz(courseid){
 
 export async function updateflash(flashcard,courseid ,status){
   try{
-    let res = await sql`UPDATE flashcards SET flashcards = ${flashcard} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
+    console.log(flashcard)
+    let res = await sql`UPDATE flashcards SET flashcards = ${JSON.stringify(flashcard)} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
        console.log('updated flashcard ->',res )
        return { data : res };
   }
@@ -216,7 +217,7 @@ export async function generateQuiz(courseid){
 
 export async function updateQuiz(quiz,courseid ,status){
   try{
-    let res = await sql`UPDATE quiz SET questions = ${quiz} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
+    let res = await sql`UPDATE quiz SET questions = ${JSON.stringify(quiz)} , status = ${status} WHERE courseid = ${courseid} RETURNING *`
        console.log('updated quiz ->',res )
        return { data : res };
   }

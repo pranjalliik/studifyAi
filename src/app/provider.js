@@ -26,12 +26,12 @@ if(user && !userSet){
 }, [user])
 
 const CheckIsNewUser=async()=>{ // Check Is User Already Exist
-    const dbHello = await helloWorld()
-    console.log('enter' , dbHello)
+    //const dbHello = await helloWorld()
+    //console.log('enter' , dbHello)
 
-  const resp = await axios.post('/api/create-user' , {user : user})
-   const response = await checkAndAddUser( user?.primaryEmailAddress.emailAddress, user?.fullName, false);
-    console.log(resp.data);
+ // const resp = await axios.post('/api/create-user' , {user : user})
+  // const response = await checkAndAddUser( user?.primaryEmailAddress.emailAddress, user?.fullName, false);
+    //console.log(resp.data);
 
     
   /*  try {

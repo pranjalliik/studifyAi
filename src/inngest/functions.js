@@ -89,7 +89,9 @@ const {course}=event.data;
         let aiResult 
         try{
       const aiResp = await flashCardModel.sendMessage(PROMPT);
+      console.log('aiResp flash-> ',aiResp  )
        aiResult = JSON.parse(aiResp.response.text());
+       console.log('aiResult ->', aiResult)
          }catch(err){ 
            deleteFlashcard(courseid)
            return 'failed'

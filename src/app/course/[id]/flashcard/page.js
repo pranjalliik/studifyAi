@@ -4,16 +4,19 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import FlashcardItem from './FlashcardItem'
 import { Button } from '@/components/ui/button'
+import axios from 'axios'
+import { ThreeDots } from 'react-loader-spinner'
 function page() {
 
     const params = useParams()
     const [step,setStep] = useState(0)
     const[isFlipped , setisFlipped] = useState()
+    const [flashcards , setFlashcards] = useState()
    useEffect(()=>{
        
         getFlashcard()
       },[params])
-let flashcards = [  {
+/*let flashcards = [  {
     "front": "What is a Widget in Flutter?",
     "back": "The fundamental building block of Flutter UI. Everything you see on the screen is a widget."
   },
@@ -73,10 +76,9 @@ let flashcards = [  {
     "front": "What is the purpose of `Key` in widgets?",
     "back": "To uniquely identify a widget, especially useful when manipulating or replacing widgets in a tree. Helps in efficient updates."
   }
-]
-console.log(flashcards[0])
+]*/
       async function getFlashcard(){
-
+         console.log('asd')
         try{
            let res = await axios.post('/api/getstudymaterial',{courseid : params.id , studymaterial : { flashcard : true}})
                 console.log(res)
@@ -87,6 +89,7 @@ console.log(flashcards[0])
              if(res.data?.result?.resFlash?.data?.[0]){
                      if(res.data?.result?.resFlash?.data?.[0]?.flashcards){
                     //  setFlash(true) setflashcards
+                       setFlashcards(JSON.parse(res.data?.result?.resFlash?.data?.[0]?.flashcards))
 
                      }
              }
@@ -95,13 +98,15 @@ console.log(flashcards[0])
       
            }
           }catch(err){
-               
+            console.log(err)    
           }
       }
 const handleClick = ()=>{
      setisFlipped(!isFlipped)
 }
-
+if(flashcards){
+console.log(flashcards)
+ }
 
 function incStep(){
     console.log(flashcards.length)
@@ -126,25 +131,39 @@ function incStep(){
    setStep(step-1)
  }
 
-  return (
-    <div className='lg:mt-10 xl:mt-10 md:mt-10 mt-4'>
+  return (<>
+    {flashcards ? <div className='lg:mt-10 xl:mt-10 md:mt-10 mt-4'>
 
-<div className='flex justify-center gap-x-3 '>
-         <div className={`h-2 w-1/5 rounded-lg  shadow-lg ${(step+1)%3 == 1 ? 'bg-blue-500' : 'bg-gray-300'}`}  ></div>
-         <div className={`h-2 w-1/5 rounded-lg  shadow-lg  ${(step+1)%3 == 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
-         <div className={`h-2 w-1/5 rounded-lg shadow-lg ${(step+1)%3 == 0 ? 'bg-blue-500' : ' bg-gray-300'}`}></div>
-       
-      </div>
+ <div className='flex justify-center gap-x-3 xl:mx-32 lg:mx-28 md:mx-24 mx-2 mt-6'>
+         {flashcards.map((question,index)=>(
+             <div className={`h-2 w-full rounded-lg  shadow-lg ${index<= step? 'bg-blue-500' : 'bg-gray-300'} `} key={index}  ></div>
+         ))
+         
+         
+         }
+        </div>
       <div className=''>
 
-      <FlashcardItem isFlipped={isFlipped} handleClick={handleClick} flashcard={flashcards[step]}/>
+  <FlashcardItem isFlipped={isFlipped} handleClick={handleClick} flashcard={flashcards[step]}/> 
       <div className='mt-6 flex justify-center lg:flex-row xl:flex-row md:flex-row flex-col gap-x-64 gap-y-4 items-center '>
         <Button className='px-12 py-6 ' onClick={decStep} >Prev</Button>
         <Button className='px-12 py-6 ' onClick={incStep} >Next</Button>
         </div>
       </div>
-    </div>
-  )
+    </div> : 
+    
+    <div  className="flex justify-center mt-6">
+            <ThreeDots
+            
+              color="#000000" // Change color of loader
+              height={10} // Set height of loader
+              width={100} // Set width of loader
+            />
+            
+            </div> }
+    </> )
 }
 
 export default page
+
+
