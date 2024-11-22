@@ -44,7 +44,6 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
 
 
     let res = await axios.post('/api/generate-flash',{courseid : course?.courseid , chapterStr : str })
-    console.log(res)
    }
      
 
@@ -59,7 +58,6 @@ function CourseIntoCard({course ,flash , quiz ,flashloading ,setFlashloading ,qu
 
 
     let res = await axios.post('/api/generate-quiz',{courseid : course?.courseid , chapterStr : str })
-    console.log(res)
    }
      
 

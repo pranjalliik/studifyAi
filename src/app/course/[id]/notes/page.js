@@ -8,28 +8,22 @@ import { split } from 'postcss/lib/list';
 function page() {
 
     const params = useParams()
-    console.log(params)
     const [step,setStep] = useState(0)
     const [course , setCourse] = useState('')
     const [loading , setLoading] = useState('')
     useEffect(()=>{
       getCourse()
     },[params])
-     console.log(course)
    
     async function getCourse(){
         
       setLoading('loading')
         try{
-            console.log(params.id)
 
          let res = await axios.get(`/api/getnotes/${params.id}`)
-         console.log(res)
          if(res.data?.result?.data?.[0]){
             setCourse(res.data?.result?.data)
-            console.log(typeof res.data?.result?.data?.[0]?.notes)
 
-            console.log(res.data?.result?.data?.[0]?.notes?.replaceAll('\\n',' '))
             setLoading('')
          }
   
@@ -40,16 +34,13 @@ function page() {
 
 
  function incStep(){
-    console.log(course.length)
    if(step == course.length-1){
-    console.log('hii')
       setStep(0)
       return
    }
 
    setStep(step+1)
  }
- console.log(step)
 
  function decStep(){
    if(step == 0){

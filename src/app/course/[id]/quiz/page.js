@@ -21,7 +21,6 @@ function page() {
     async function getQuiz(){
         try{
            let res = await axios.post('/api/getstudymaterial',{courseid : params.id , studymaterial : { quiz: true}})
-                console.log(res)
       
            if(res.data?.result){
               //setCourse(res.data?.result?.data?.[0])
@@ -99,14 +98,12 @@ function incStep(){
     setSelectedAns('')
 
     if(step == quiz.questions.length-1){
-    console.log('hii')
       setStep(0)
       return
    }
 
    setStep(step+1)
  }
- console.log(step)
 
  function decStep(){
     setQueRes(false)

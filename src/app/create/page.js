@@ -25,7 +25,6 @@ function CreateCourse() {
       ...prev,
       [name] : value
     }))
-    console.log(formData)
   }
 
 async function handleGenerate(){
@@ -39,7 +38,6 @@ async function handleGenerate(){
  createdBy : user?.primaryEmailAddress?.emailAddress
 
   })
-  console.log(res)
   if(res){
     setLoading('')
     router.push('/dashboard')

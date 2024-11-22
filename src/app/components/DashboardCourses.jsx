@@ -23,14 +23,12 @@ function DashboardCourses() {
         let res = await  axios.post('/api/usercourse',{
             user : user?.primaryEmailAddress?.emailAddress
         })
-       console.log(res.data.data)
          if(res.data.data.data[0]){
         setCourses(res.data.data.data)
          }else{
           setCourses([])
          }
     }
-   console.log(courses)
   return (
     <div>
         <div className='mt-10 font-extrabold text-xl flex justify-between items-center'>Your Courses

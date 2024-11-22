@@ -43,7 +43,6 @@ useEffect(()=>{
 async function getCreditCount(){
     if(user){
     let res = await axios.post('/api/getcredit' , {email : user.primaryEmailAddress.emailAddress})
-    console.log(res)
     if(res?.data?.result?.creditconsumed?.[0]?.count){
         setCount(res.data.result.creditconsumed[0].count)
      }

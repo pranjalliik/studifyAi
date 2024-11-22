@@ -21,7 +21,6 @@ function DashboardHeader() {
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const [query, setQuery] = useState('');
     const pathname = usePathname();
-    console.log(pathname)
     const [isClient, setIsClient] = useState(false);
     useEffect(() => {
         if(!isClient)setIsClient(true);

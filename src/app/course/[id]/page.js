@@ -23,7 +23,7 @@ useEffect(()=>{
   getStudyMaterial()
 },[params])
 
-//console.log(course)
+
 async function getCourse(){
 
   setLoading('loading')
@@ -43,7 +43,6 @@ async function getStudyMaterial(){
 
   try{
      let res = await axios.post('/api/getstudymaterial',{courseid : params.id , studymaterial : { flashcard : true, quiz: true}})
-          console.log(res)
 
      if(res.data?.result){
         //setCourse(res.data?.result?.data?.[0])

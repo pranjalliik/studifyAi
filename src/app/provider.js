@@ -13,8 +13,8 @@ function Provider({children}) {
   const [userSet,setUser] = useState(false)
 
 const {user}=useUser();
-console.log(user)
-console.log('hii')
+//console.log(user)
+//console.log('hii')
 
 useEffect(()=>{ 
     
@@ -28,8 +28,8 @@ if(user && !userSet){
 const CheckIsNewUser=async()=>{ // Check Is User Already Exist
     //const dbHello = await helloWorld()
     //console.log('enter' , dbHello)
-
- // const resp = await axios.post('/api/create-user' , {user : user})
+//console.log('hii')
+ const resp = await axios.post('/api/create-user' , {user : user})
   // const response = await checkAndAddUser( user?.primaryEmailAddress.emailAddress, user?.fullName, false);
     //console.log(resp.data);
 

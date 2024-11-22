@@ -78,10 +78,8 @@ function page() {
   }
 ]*/
       async function getFlashcard(){
-         console.log('asd')
         try{
            let res = await axios.post('/api/getstudymaterial',{courseid : params.id , studymaterial : { flashcard : true}})
-                console.log(res)
       
            if(res.data?.result){
               //setCourse(res.data?.result?.data?.[0])
@@ -98,28 +96,22 @@ function page() {
       
            }
           }catch(err){
-            console.log(err)    
           }
       }
 const handleClick = ()=>{
      setisFlipped(!isFlipped)
 }
-if(flashcards){
-console.log(flashcards)
- }
+
 
 function incStep(){
-    console.log(flashcards.length)
     setisFlipped(false)
    if(step == flashcards.length-1){
-    console.log('hii')
       setStep(0)
       return
    }
 
    setStep(step+1)
  }
- console.log(step)
 
  function decStep(){
     setisFlipped(false)
