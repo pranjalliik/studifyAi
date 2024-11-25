@@ -50,7 +50,7 @@ const {course}=event.data;
     let index = 0;
 
     for (const chapter of chapters) {
-      const PROMPT =  'Generate exam material detail content for each chapter Make sure to includes all topic point in the content, make sure to give content in HTML format (Do not Add HTMLK, Head, Body, title tag), The chapter is ' + JSON.stringify(chapter)
+      const PROMPT =  'Generate exam material detail content for each chapter Make sure to includes all topic point in the content, make sure to give content in HTML format (Do not Add HTMLK, Head, Body, title tag), The chapter is ' + JSON.stringify(chapter) + ' I want you to give me answer in this format only  like "content" :  then html content '
       console.log(PROMPT);
   
       const aiResp = await createChapterModel.sendMessage(PROMPT);
