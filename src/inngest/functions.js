@@ -8,7 +8,8 @@ import { flashCardModel } from "@/configs/aiModel";
 import { deleteFlashcard } from "@/configs/db";
 import { quizModel } from "@/configs/aiModel";
 import { deleteQuiz , updateQuiz } from "@/configs/db";
-
+import { courseOutline } from "@/configs/aiModel";
+import { createCourse , updateCourseLayout ,deletecourse} from "@/configs/db";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -45,36 +46,7 @@ export const GenerateNotes=inngest.createFunction(
    async({event,step})=>{
 const {course}=event.data;
 
-  const notesResult = await step.run('Generate Chapter Notes',async()=>{
-    const chapters  = course?.courselayout?.chapters
-    let index = 0;
 
-    for (const chapter of chapters) {
-      const PROMPT =  'Generate exam material detail content for each chapter Make sure to includes all topic point in the content, make sure to give content in HTML format (Do not Add HTMLK, Head, Body, title tag), The chapter is ' + JSON.stringify(chapter) + ' I want you to give me answer in this format only  like "content" :  then html content '
-      console.log(PROMPT);
-  
-      const aiResp = await createChapterModel.sendMessage(PROMPT);
-           
-         console.log("AI Response:", aiResp);
-
-        const aiResult = aiResp.response.text();
-
-      
-      const dbres = await addChapters(course?.courseid, index, aiResult);
-      console.log(dbres);
-    
-      index = index + 1; // Increment index after awaiting the async operation
-    }
-    return 'Completed'
-  })
-  
-   const updateStatusRes = await step.run('Update course status to ready',async()=>{
-      console.log(course.courseid)
-             let res = await updateCourseStatus(course.courseid) 
- 
-         return 'Success'
-            })
- 
 
   })
 
@@ -131,4 +103,87 @@ const {course}=event.data;
 
       })
      }
+  )
+
+
+
+
+
+
+
+  export const generateCourseAndCh = inngest.createFunction(
+
+    {id: 'generate-courseandch'}, 
+    {event:'courseandch.generate'},
+     async({event,step})=>{
+      const {PROMPT , courseinfo}=event.data;
+        
+      const courseResult = await step.run('Generate course',async()=>{
+        
+        try{
+          const aiResp = await courseOutline.sendMessage(PROMPT);
+          console.log("AI Response:", aiResp);
+
+          const aiResult = JSON.parse(aiResp.response.text());
+          const res = await updateCourseLayout( courseinfo.courseid , aiResult)
+          return  {status: 'success' , course : res.data[0] }
+        }catch(err){
+             console.log(err)
+              deletecourse(courseinfo.courseid)
+             return  {status: 'failed' }
+        }
+      })
+    
+    
+
+      const notesResult = await step.run('Generate Chapter Notes',async()=>{
+
+        let {course , status} =  courseResult
+
+        if(status === 'success' ){
+
+        const chapters  = course?.courselayout?.chapters
+        let index = 0;
+    
+        for (const chapter of chapters) {
+          const PROMPT =  'Generate exam material detail content for each chapter Make sure to includes all topic point in the content, make sure to give content in HTML format (Do not Add HTMLK, Head, Body, title tag), The chapter is ' + JSON.stringify(chapter) + ' I want you to give me answer in this format only  like "content" :  then html content '
+          console.log(PROMPT);
+      
+          const aiResp = await createChapterModel.sendMessage(PROMPT);
+               
+             console.log("AI Response:", aiResp);
+    
+            const aiResult = aiResp.response.text();
+    
+          
+          const dbres = await addChapters(course?.courseid, index, aiResult);
+          console.log(dbres);
+        
+          index = index + 1; // Increment index after awaiting the async operation
+        }
+        return {status : 'success' , course : course}
+
+      }else{
+        return {status : 'failed'}
+      }
+      })
+      
+       const updateStatusRes = await step.run('Update course status to ready',async()=>{
+           
+        let {status , course} = notesResult 
+        
+        if(status === 'success'){
+          console.log(course.courseid)
+                 let res = await updateCourseStatus(course.courseid) 
+     
+             return 'Success'
+      }else{
+        return 'failed'
+      } })
+     
+    
+    
+    
+    }
+
   )

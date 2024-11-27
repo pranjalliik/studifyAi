@@ -58,6 +58,26 @@ export async function createCourse(courseId ,content ,purpose ,difficulty , layo
 }
 
 
+
+export async function updateCourseLayout(id , layout){
+  try {
+    //  console.log(user)
+    const updatedCourse = await sql`UPDATE studymaterial SET courselayout = ${layout} WHERE courseid = ${id} RETURNING *`
+    if ( updatedCourse) {
+
+      return { data : updatedCourse };
+    } 
+  } catch (error) {
+    console.error('Database query error:', error);
+    throw new Error('Failed to check or add user');
+  }
+}
+
+
+
+
+
+
 export async function getUserCourse(user){
   try {
       console.log(user)
@@ -242,4 +262,18 @@ export async function countCreditConsumed(email){
 }catch(err){
   console.log(err)
 }
+}
+
+
+
+
+
+
+export async function deletecourse(courseId){
+  try{
+ let res = await sql`DELETE FROM studymaterial WHERE courseid = ${courseId}`
+ 
+  }catch(err){
+    console.log(err)
+  }
 }

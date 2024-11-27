@@ -59,9 +59,13 @@ return (
   <PopoverTrigger><Menu/></PopoverTrigger>
   <PopoverContent className='w-64 p-0'>
   {MenuList.map((menu,index)=>(
-    <div key={index} className="flex p-4  border-b shadow-md hover:bg-slate-200">
+    <div key={index}>
+    {
+    <div className="flex p-4  border-b shadow-md hover:bg-slate-200">
         <menu.icon/>
         <div className='ml-4 '>{menu.name}</div>
+    </div>
+    }
     </div>
 ))}
 </PopoverContent>

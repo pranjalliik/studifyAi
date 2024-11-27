@@ -14,23 +14,33 @@ export async function POST(req) {
     }
 
     const PROMPT = `Generate a study material for ${content} for ${purpose} and level of difficulty will be ${difficulty} with summary of course, List of Chapters along with summary for each chapter, Topic list in each chapter, All result in JSON format`;
-     const aiResp = await courseOutline.sendMessage(PROMPT);
+    // const aiResp = await courseOutline.sendMessage(PROMPT);
            
-     console.log("AI Response:", aiResp);
+     //console.log("AI Response:", aiResp);
 
-     const aiResult = JSON.parse(aiResp.response.text());
-    const dbRes = await createCourse(courseId, content, purpose, difficulty, aiResult, createdBy);
+     //const aiResult = JSON.parse(aiResp.response.text());
+    const dbRes = await createCourse(courseId, content, purpose, difficulty, {msg : 'course is currently generating'}, createdBy);
 
     //console.log("Database Insert Result:", dbRes);
 
+    inngest.send({
+      name : 'courseandch.generate' ,
+      data : {
+        courseinfo : dbRes.data[0] ,
+        PROMPT : PROMPT
+      }
+    })
+ 
 
+
+/*
   const result = await inngest.send({
     name : 'notes.generate' ,
     data : {
         course : dbRes.data[0]
     }
    })
-
+*/
 
     return NextResponse.json({ result: dbRes });
   } catch (error) {
