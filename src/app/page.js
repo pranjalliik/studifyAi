@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
         <div className=" lg:mt-3 md:mt-3 xl:mt-3 mt-2 lg:text-lg md:text-lg xl:text-lg  text-gray-600 text-center ">Effortlessly prepare for job exams and coding interviews with AI-powered study tools.<br/> Get chapter briefs, topic outlines, flashcards, and quizzes – all tailored to your success.</div>
      <Button className="bg-black text-white p-4 mt-6 font-bold text-lg bg-blue-500" onClick={()=>router.push('/dashboard')}>Get Started</Button>
-     <Button className="bg-black text-white p-4 mt-3 font-bold text-lg px-10">Demo</Button>
+     <a  href="https://www.youtube.com/watch?v=ZzqYNQ6jKuU" target="_blank"  className="bg-black text-white p-4 mt-3 font-bold text-lg px-10 py-2 rounded-lg">Demo</a>
  
   </div>
   </div>
