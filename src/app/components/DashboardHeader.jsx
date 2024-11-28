@@ -13,10 +13,14 @@ import {
   import { Menu } from 'lucide-react';
   import { LayoutDashboard ,Shield , UserCircle } from 'lucide-react'
   import { usePathname } from 'next/navigation';
+  import { useRouter } from 'next/navigation'
+
+
 import Link from 'next/link'
 
 function DashboardHeader() {
 
+     const router = useRouter();
     const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const [query, setQuery] = useState('');
@@ -58,16 +62,17 @@ return (
     Popover>
   <PopoverTrigger><Menu/></PopoverTrigger>
   <PopoverContent className='w-64 p-0'>
-  {MenuList.map((menu,index)=>(
-    <div key={index}>
-    {
-    <div className="flex p-4  border-b shadow-md hover:bg-slate-200">
-        <menu.icon/>
-        <div className='ml-4 '>{menu.name}</div>
-    </div>
-    }
-    </div>
-))}
+  
+   { <div className="flex p-4  border-b shadow-md hover:bg-slate-200">
+        <LayoutDashboard/>
+        <div className='ml-4 ' ><Link href='/dashboard' className='text-black'>Dashboard</Link></div>
+    </div> }
+   { pathname === '/dashboard' &&  <div className="flex p-4  border-b shadow-md hover:bg-slate-200">
+        <UserCircle/>
+        <div className='ml-4 ' onClick={()=>router.push('')} >Profile</div>
+    </div> }
+  
+
 </PopoverContent>
 </Popover>
 }
